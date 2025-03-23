@@ -1,9 +1,18 @@
 #!/bin/bash
 
 echo -e "\n 🟩 Creating deployment script for $DOMAIN..."
-# copy deploy.sh to /var/www/$DOMAIN/deploy/deploy.sh
+
+# Create deployment directory.
+echo -e "\n 🟩 Creating deployment directory..."
+mkdir -p /var/www/$DOMAIN/deploy
+
+echo -e "\n 🟩 Creating deployment script..."
 cp deploy.sh /var/www/$DOMAIN/deploy/deploy.sh
+
+echo -e "\n 🟩 Setting permissions..."
 chmod +x /var/www/$DOMAIN/deploy/deploy.sh
+
+echo   "\n 🟩 Setting ownership..."
 chown -R www-data:www-data /var/www/$DOMAIN/deploy/deploy.sh
 
 echo -e "\n ✅  Deployment script created for $DOMAIN."
