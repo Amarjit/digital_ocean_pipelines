@@ -29,9 +29,11 @@ update_env_var() {
 echo -e "🟩  Starting to update the .env file...\n"
 
 update_env_var "DOMAIN" "Enter your domain (e.g., example.com)"
-update_env_var "GIT_REPO_URL" "Enter your Git repository URL"
 update_env_var "GIT_REPO_NAME" "Enter your Git repository name"
 update_env_var "GIT_BRANCH_NAME" "Enter your Git branch name"
 update_env_var "GIT_WEBHOOK_SECRET" "Enter your Git webhook secret"
 
 echo -e "\n🟩  All variables updated in .env."
+
+# You must manually GIT_REPO_URL in the .env file
+echo -e "\n ⚠️  Please manually update the GIT_REPO_URL variable in the .env file.  ⚠️"
