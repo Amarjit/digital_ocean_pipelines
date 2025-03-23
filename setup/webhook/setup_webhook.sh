@@ -16,5 +16,6 @@ echo -e "\n 🟩  Copying webhook recipient PHP script to domain..."
 cp setup/webhook/webhook.php /var/www/$DOMAIN/public/webhook.php
 chown www-data:www-data /var/www/$DOMAIN/public/webhook.php
 chmod 644 /var/www/$DOMAIN/public/webhook.php
+chmod +x /var/www/$DOMAIN/public/webhook.php
 
 echo -e "\n ✅ Completed webook setup."
