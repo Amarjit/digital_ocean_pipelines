@@ -13,8 +13,8 @@ chown www-data:www-data /var/www/$DOMAIN/logs/webhook.log
 chmod 644 /var/www/$DOMAIN/logs/webhook.log
 
 echo -e "\n ✅  Copying webhook recipient PHP script to domain..."
-cp setup/webhook/webhook.php /var/www/$DOMAIN/public_html/webhook.php
-chown www-data:www-data /var/www/$DOMAIN/public_html/webhook.php
-chmod 644 /var/www/$DOMAIN/public_html/webhook.php
+cp setup/webhook/webhook.php /var/www/$DOMAIN/public/webhook.php
+chown www-data:www-data /var/www/$DOMAIN/public/webhook.php
+chmod 644 /var/www/$DOMAIN/public/webhook.php
 
 echo -e "\n 🟩 Completed webook setup."
