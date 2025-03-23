@@ -1,18 +1,11 @@
 #!/bin/bash
 
-# Define the .env file
-ENV_FILE="../.env"
-
-# Create .env if it doesn't exist
-if [ ! -f "$ENV_FILE" ]; then
-    echo -e "\n 🟩 Creating .env file..."
-    touch "$ENV_FILE"
+# Env.
+if [ -f .env ]; then
+    set -a
+    source .env
+    set +a
 fi
-
-# Load existing .env variables
-set -a
-source "$ENV_FILE" 2>/dev/null
-set +a
 
 # Setup webhook IP whitelisting.
 chmod +x setup/setup_github_whitelist.sh
