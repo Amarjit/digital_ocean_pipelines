@@ -21,51 +21,48 @@ for ip in $HOOK_IPS; do
     IP_BLOCK="$IP_BLOCK\n            Require ip $ip"
 done
 
-# Define the block to update the <Files "webhook.php"> section
-WEBHOOK_BLOCK=$(cat <<EOF
-        <Files "webhook.php">
-            Require all denied
-            # Allow GitHub's IP ranges (use the most current ones from GitHub)
-$IP_BLOCK
-        </Files>
-EOF
-)
-
 # SSL Vhost.
 VHOST_FILE="/etc/apache2/sites-enabled/001-$DOMAIN-le-ssl.conf"
 
-# Check if the vhost file contains the <Directory "/var/www/$DOMAIN/public/"> block
-echo -e "\n 🟩  Figuring how to add webhook whitelist to vhosts..."
+# Define block <Files "webhook.php"> section. We need to escape special characters becaus sed makes me mad. Newlines need to be handled carefully (using newline SED 'trick').
+echo -e "\n 🟩  Preparing webhook block..."
+WEBHOOK_BLOCK="\n    <Directory /var/www/$DOMAIN/public>\n        <Files webhook.php>\n            Require all denied\n\n            # Allow GitHubs IP ranges    $IP_BLOCK\n        </Files>\n    </Directory>"
+ESCAPED_WEBHOOK_BLOCK=$(echo "$WEBHOOK_BLOCK" | sed \
+    -e ':a' \
+    -e 'N' \
+    -e 's/\n/NEWLINE/g' \
+    -e 's/"/LEFTQUOTE/g' \
+    -e "s/'/RIGHTQUOTE/g" \
+    -e 's/\./DOT/g' \
+    -e 's/:/COLON/g' \
+    -e 's/\\/BACKSLASH/g' \
+    -e 's/\//SLASH/g' \
+    -e 's/</LEFTANGLE/g' \
+    -e 's/>/RIGHTANGLE/g' \
+    -e 's/#/HASH/g')
 
-if ! grep -q '<Directory "/var/www/$DOMAIN/public">' $VHOST_FILE; then
-    # If it doesn't exist, create the <Directory> block (only if not already there)
-    echo -e "\n 🟩 Creating <Directory> block for /var/www/$DOMAIN/public/..."
-    cat <<EOF >> $VHOST_FILE
-    <Directory "/var/www/$DOMAIN/public">
-        AllowOverride AuthConfig Limit FileInfo
-        Options -Indexes
-        Options +FollowSymLinks
-    </Directory>
-EOF
-    echo "Created <Directory> block for /var/www/$DOMAIN/public/"
-else
-    echo "Directory block already exists, skipping creation."
-fi
+# Insert the entire webhook block below DocumentRoot. Duplicate <Directory> blocks are allowed.
+echo -e "\n 🟩  Adding webhook IP whitelist block to vhost file..."
+sed -i "/DocumentRoot/a\\
+$ESCAPED_WEBHOOK_BLOCK" $VHOST_FILE
 
-# Check if the vhost file contains the <Files "webhook.php"> block
-echo -e "\n 🟩 Checking for existing <Files \"webhook.php\"> block..."
+# Replace the placeholders in the vhost file.
+echo -e "\n 🟩  Replacing placeholders in vhost file..."
+sed -i \
+    -e 's/NEWLINE/\n/g' \
+    -e 's/LEFTQUOTE/"/g' \
+    -e 's/RIGHTQUOTE/'\''/g' \
+    -e 's/DOT/\./g' \
+    -e 's/COLON/:/g' \
+    -e 's/BACKSLASH/\\/g' \
+    -e 's/SLASH/\//g' \
+    -e 's/LEFTANGLE/</g' \
+    -e 's/RIGHTANGLE/>/g' \
+    -e 's/HASH/#/g' \
+    $VHOST_FILE
 
-if grep -q '<Files "webhook.php">' $VHOST_FILE; then
-    # If it exists, replace the existing block with the new one
-    echo -e "\n 🟩 Updating the IP whitelist block for webhook.php..."
-    sed -i "/<Files \"webhook.php\">/,/<\/Files>/c\\
-$WEBHOOK_BLOCK" $VHOST_FILE
-else
-    # If it doesn't exist, add the block inside the <Directory> section
-    echo -e "\n 🟩 Adding the IP whitelist block for webhook.php to the vhost file..."
-    sed -i "/<Directory \"\/var\/www\/$DOMAIN\/public\/\">/a\\
-$WEBHOOK_BLOCK" $VHOST_FILE
-fi
+# Output success message
+echo -e "\n ✅  Webhook IP whitelist block added or updated in vhost file."
 
 # Reload Apache to apply the changes.
 echo -e "\n 🟩 Reloading Apache configuration..."
