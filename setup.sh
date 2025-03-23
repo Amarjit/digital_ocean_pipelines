@@ -7,6 +7,10 @@ if [ -f .env ]; then
     set +a
 fi
 
+# Get env setup from user.
+chmod +x setup/setup_env.sh
+./setup/setup_env.sh
+
 # Setup webhook IP whitelisting.
 chmod +x setup/setup_github_whitelist.sh
 ./setup/setup_github_whitelist.sh
