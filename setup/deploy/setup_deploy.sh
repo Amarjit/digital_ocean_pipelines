@@ -10,7 +10,7 @@ chown -R www-data:www-data /var/www/$DOMAIN/deploy
 
 
 echo -e "\n 🟩 Creating deployment script..."
-cp deploy.sh /var/www/$DOMAIN/deploy/deploy.sh
+cp setup/deploy/deploy.sh /var/www/$DOMAIN/deploy/deploy.sh
 chmod 700 /var/www/$DOMAIN/deploy/deploy.sh
 chmod +x /var/www/$DOMAIN/deploy/deploy.sh
 chown -R www-data:www-data /var/www/$DOMAIN/deploy/deploy.sh
