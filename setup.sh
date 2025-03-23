@@ -20,5 +20,5 @@ chmod +x setup/webhook/setup_webhook.sh
 ./setup/webhook/setup_webhook.sh
 
 # Notify user of setting up webhook, secret and how to test.
-echo -e "\n 🟩 Setup complete."
+echo -e "\n ✅ Setup complete."
 echo -e "\n 🟩 Ensure that you read the README to ensure you have setup GitHub Webhook and authentication correctly."
