@@ -38,27 +38,33 @@ VHOST_FILE="/etc/apache2/sites-enabled/001-$DOMAIN-le-ssl.conf"
 echo -e "\n 🟩  Figuring how to add webhook whitelist to vhosts..."
 
 if ! grep -q '<Directory "/var/www/$DOMAIN/public">' $VHOST_FILE; then
-    # If it doesn't exist, create the <Directory> block
+    # If it doesn't exist, create the <Directory> block (only if not already there)
     echo -e "\n 🟩 Creating <Directory> block for /var/www/$DOMAIN/public/..."
     cat <<EOF >> $VHOST_FILE
     <Directory "/var/www/$DOMAIN/public">
-        #
+        AllowOverride AuthConfig Limit FileInfo
+        Options -Indexes
+        Options +FollowSymLinks
     </Directory>
 EOF
     echo "Created <Directory> block for /var/www/$DOMAIN/public/"
+else
+    echo "Directory block already exists, skipping creation."
 fi
 
 # Check if the vhost file contains the <Files "webhook.php"> block
+echo -e "\n 🟩 Checking for existing <Files \"webhook.php\"> block..."
+
 if grep -q '<Files "webhook.php">' $VHOST_FILE; then
-    # If it exists, replace the existing block
+    # If it exists, replace the existing block with the new one
+    echo -e "\n 🟩 Updating the IP whitelist block for webhook.php..."
     sed -i "/<Files \"webhook.php\">/,/<\/Files>/c\\
 $WEBHOOK_BLOCK" $VHOST_FILE
-    echo -e "\n 🟩  Updated the IP whitelist block for webhook.php in the vhost file."
 else
-    # If not, add the block inside the <Directory> section
+    # If it doesn't exist, add the block inside the <Directory> section
+    echo -e "\n 🟩 Adding the IP whitelist block for webhook.php to the vhost file..."
     sed -i "/<Directory \"\/var\/www\/$DOMAIN\/public\/\">/a\\
 $WEBHOOK_BLOCK" $VHOST_FILE
-    echo -e "\n 🟩  Added the IP whitelist block for webhook.php to the vhost file."
 fi
 
 # Reload Apache to apply the changes.
