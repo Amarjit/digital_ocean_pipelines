@@ -27,7 +27,7 @@ $IP_BLOCK
 EOF
 )
 
-// SSL Vhost.
+# SSL Vhost.
 $VHOST_FILE="/etc/apache2/sites-enabled/001-$DOMAIN-le-ssl.conf"
 
 # Check if the vhost file contains the <Directory "/var/www/$DOMAIN/public/"> block
