@@ -1,5 +1,7 @@
 #!/bin/bash
 
+apt install -y jq
+
 # Fetch the IPs and extract the 'hooks' section from GitHub API.
 HOOK_IPS=$(curl -s "$GITHUB_META_URL" | jq -r '.hooks[]')
 
