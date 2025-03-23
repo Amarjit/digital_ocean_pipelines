@@ -56,6 +56,7 @@ $WEBHOOK_BLOCK" $VHOST_FILE
 fi
 
 # Reload Apache to apply the changes
+echo -e "\n 🟩 Reloading Apache configuration..."
 systemctl reload apache2
 echo "Apache configuration reloaded."
 
