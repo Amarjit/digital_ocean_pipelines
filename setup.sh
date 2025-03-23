@@ -16,7 +16,7 @@ set +a
 
 # Setup webhook IP whitelisting.
 chmod +x setup/github_whitelist.sh
-./setup/github_whitelist.sh
+./setup/setup_github_whitelist.sh
 
 # Create deployment script.
 chmod +x setup/deploy/setup_deploy.sh
