@@ -12,7 +12,7 @@ cp deploy.sh /var/www/$DOMAIN/deploy/deploy.sh
 echo -e "\n 🟩 Setting permissions..."
 chmod +x /var/www/$DOMAIN/deploy/deploy.sh
 
-echo   "\n 🟩 Setting ownership..."
+echo -e "\n 🟩 Setting ownership..."
 chown -R www-data:www-data /var/www/$DOMAIN/deploy/deploy.sh
 
 echo -e "\n ✅  Deployment script created for $DOMAIN."
