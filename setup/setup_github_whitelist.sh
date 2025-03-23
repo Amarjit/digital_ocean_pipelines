@@ -28,7 +28,7 @@ EOF
 )
 
 # SSL Vhost.
-$VHOST_FILE="/etc/apache2/sites-enabled/001-$DOMAIN-le-ssl.conf"
+VHOST_FILE="/etc/apache2/sites-enabled/001-$DOMAIN-le-ssl.conf"
 
 # Check if the vhost file contains the <Directory "/var/www/$DOMAIN/public/"> block
 if ! grep -q '<Directory "/var/www/$DOMAIN/public/">' $VHOST_FILE; then
