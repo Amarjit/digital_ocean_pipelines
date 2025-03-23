@@ -15,7 +15,7 @@ source "$ENV_FILE" 2>/dev/null
 set +a
 
 # Setup webhook IP whitelisting.
-chmod +x setup/github_whitelist.sh
+chmod +x setup/setup_github_whitelist.sh
 ./setup/setup_github_whitelist.sh
 
 # Create deployment script.
