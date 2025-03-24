@@ -1,12 +1,5 @@
 #!/bin/bash
 
-# Env.
-if [ -f .env ]; then
-    set -a
-    source .env
-    set +a
-fi
-
 # Get env setup from user.
 chmod +x setup/setup_env.sh
 ./setup/setup_env.sh

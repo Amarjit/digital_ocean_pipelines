@@ -11,7 +11,7 @@ chown -R www-data:www-data /var/www/$DOMAIN/deploy
 echo -e "\n 🟩  Creating deployment script..."
 cp setup/deploy/deploy.sh /var/www/$DOMAIN/deploy/deploy.sh
 chmod 500 /var/www/$DOMAIN/deploy/deploy.sh # read and execute
-chown -R www-data:www-data /var/www/$DOMAIN/deploy/deploy.sh
+chown -R root:root /var/www/$DOMAIN/deploy/deploy.sh
 
 # Creat artifact directory. Public folder also added, as it's a common folder.
 echo -e "\n 🟩  Creating artifact directory...

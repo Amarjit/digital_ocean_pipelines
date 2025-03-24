@@ -3,6 +3,7 @@
 // Set your GitHub secret (same as in webhook settings)
 $secret = 'SECRET_EXAMPLE'; // Secret key.
 $log_file = "../logs/webhook.log";  // Log file location
+$flags_path = "../deploy/flags/deploy"; // Flag to indicate deployment should be initiated.
 
 // Get raw request body & headers.
 $payload = file_get_contents("php://input");
@@ -30,4 +31,5 @@ if (isset($data["ref"]) && isset($data["repository"]["name"])) {
 }
 
 http_response_code(200);
-echo "OK";
+
+touch($flags_path);

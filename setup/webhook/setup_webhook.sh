@@ -24,6 +24,12 @@ chown www-data:www-data /var/www/$DOMAIN/public/webhook.php
 chmod 400 /var/www/$DOMAIN/public/webhook.php # read-only
 chmod +x /var/www/$DOMAIN/public/webhook.php
 
+# Create flags folder in deploy. Use to indicate deploy is required.
+echo -e "\n 🟩  Creating flags folder in deploy..."
+mkdir -p /var/www/$DOMAIN/deploy/flags
+chown -R www-data:www-data /var/www/$DOMAIN/deploy/flags
+chmod -R 300 /var/www/$DOMAIN/deploy/flags # write-only
+
 echo -e "\n 🟩  Replacing GitHub webhook secret key in webhook.php..."
 sed -i "s/SECRET_EXAMPLE/$GIT_WEBHOOK_SECRET/g" /var/www/$DOMAIN/public/webhook.php
 
