@@ -4,9 +4,13 @@
 chmod +x setup/setup_env.sh
 source setup/setup_env.sh
 
+# Refresh the .env file in the current shell
+echo -e "\n🟩  Loading the new .env file to current shell..."
+source /var/www/$DOMAIN/.env
+
 # Setup webhook IP whitelisting.
 chmod +x setup/setup_github_whitelist.sh
-./setup/setup_github_whitelist.sh
+/setup/setup_github_whitelist.sh
 
 # Create deployment script.
 chmod +x setup/deploy/setup_deploy.sh
