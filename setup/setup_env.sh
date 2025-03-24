@@ -92,6 +92,5 @@ else
 fi
 
 # Load the some .env variables in the current shell to mke it available for other scripts.
-echo -e "\n🟩 Some ENV variables loaded into shell"
-export $DOMAIN
-export $GIT_REPO_URL
+echo -e "\n🟩 Load ENV variables into shell"
+source /var/www/$DOMAIN/.env
