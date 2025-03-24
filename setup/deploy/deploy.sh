@@ -22,14 +22,14 @@ echo "Moving new changes to green deployment..."
 mkdir -p "$GREEN_PATH"
 cp -r "$LATEST_DEPLOYMENT"/* "$GREEN_PATH"
 chown -R www-data:www-data "$GREEN_PATH"
-chmod -R 700 "$GREEN_PATH"
+chmod -R 400 "$GREEN_PATH"
 
 # Move the current live to blue
 echo "Moving current live to blue deployment..."
 if [ -d "$CURRENT_PATH" ]; then
     mv "$CURRENT_PATH" "$BLUE_PATH"
     chown -R root:root "$BLUE_PATH"
-    chmod -R 700 "$BLUE_PATH"
+    chmod -R 400 "$BLUE_PATH"
 else
     echo "Warning: No current live deployment found, skipping blue deployment."
 fi
@@ -38,6 +38,6 @@ fi
 echo "Deploying the green deployment to the current live path..."
 mv "$GREEN_PATH" "$CURRENT_PATH"
 chown -R www-data:www-data "$CURRENT_PATH"
-chmod -R 700 "$CURRENT_PATH"
+chmod -R 400 "$CURRENT_PATH"
 
 echo "Deployment completed successfully."
