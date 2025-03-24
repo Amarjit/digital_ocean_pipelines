@@ -25,17 +25,17 @@ git clone "$GIT_REPO_URL" "$LATEST_DEPLOYMENT"
 echo -e "\n 🟩  Copying artifacts to latest deployment..."
 cp -r /var/www/$DOMAIN/deploy/artifacts/* "$LATEST_DEPLOYMENT"
 
-# Set the correct permissions
-echo -e "\n 🟩  Setting of permissions of latest changes..."
-chown -R www-data:www-data "$LATEST_DEPLOYMENT"
-chmod 500 "$LATEST_DEPLOYMENT"
-chmod -R 400 "$LATEST_DEPLOYMENT"
-chown -R www-data:www-data "$LATEST_DEPLOYMENT"
-
 # Move the new changes to a green deployment
 echo -e "\n 🟩  Moving new changes to GREEN deployment..."
 mkdir -p "$GREEN_PATH"
 cp -r "$LATEST_DEPLOYMENT"/public/* "$GREEN_PATH"
+
+# Set the correct permissions
+echo -e "\n 🟩  Setting of permissions of latest changes..."
+chown -R www-data:www-data "$GREEN_PATH"
+chmod 500 "$GREEN_PATH"
+chmod -R 400 "$GREEN_PATH"
+chown -R www-data:www-data "$GREEN_PATH"
 
 # Move the current live to blue
 echo -e "\n 🟩  Moving current LIVE to BLUE deployment...."
