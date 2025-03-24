@@ -1,8 +1,7 @@
 <?php
 
 // Set your GitHub secret (same as in webhook settings)
-// todo: should be replaced with a secret from environment variable.
-$secret = $env['GITHUB_SECRET'] ?? '';  // Default to empty string if not set
+$secret = 'SECRET_EXAMPLE'; // Secret key.
 $log_file = "../logs/webhook.log";  // Log file location
 
 // Get raw request body & headers.

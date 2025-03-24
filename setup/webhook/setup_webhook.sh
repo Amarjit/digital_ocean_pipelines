@@ -18,4 +18,7 @@ chown www-data:www-data /var/www/$DOMAIN/public/webhook.php
 chmod 644 /var/www/$DOMAIN/public/webhook.php
 chmod +x /var/www/$DOMAIN/public/webhook.php
 
+echo -e "\n 🟩  Replacing GitHub webhook secret key in webhook.php..."
+sed -i "s/SECRET_EXAMPLE/$GIT_WEBHOOK_SECRET/g" /var/www/$DOMAIN/public/webhook.php
+
 echo -e "\n ✅ Completed webook setup."
