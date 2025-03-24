@@ -70,7 +70,7 @@ if [ -z "$DOMAIN" ]; then
     rm -f $ENV_LIVE
     exit 1
 elif [ ! -d "/var/www/$DOMAIN" ]; then
-    echo -e "\n🟥  Domain folder does not exist. Cannot copy .env file. Aborting..."
+    echo -e "\n🟥  Domain folder does not exist. Cannot move .env file. Aborting..."
     rm -f $ENV_LIVE
     exit 1
 fi
@@ -85,5 +85,6 @@ if [ -f "/var/www/$DOMAIN/.env" ]; then
     echo -e "\n✅  Env setup completed successfully"
 else
     echo -e "\n🟥  Failed to move .env file to /var/www/$DOMAIN/.env. Aborting..."
+    rm -f $ENV_LIVE
     exit 1
 fi
