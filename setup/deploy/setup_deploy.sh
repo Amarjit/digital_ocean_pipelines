@@ -13,10 +13,10 @@ cp setup/deploy/deploy.sh /var/www/$DOMAIN/deploy/deploy.sh
 chmod 500 /var/www/$DOMAIN/deploy/deploy.sh # read and execute
 chown -R www-data:www-data /var/www/$DOMAIN/deploy/deploy.sh
 
-# Creat artifact directory.
+# Creat artifact directory. Public folder also added, as it's a common folder.
 echo -e "\n 🟩  Creating artifact directory...
-mkdir -p /var/www/$DOMAIN/deploy/artifacts"
-chmod -R 700 /var/www/$DOMAIN/deploy/artifacts # execute-only
-chown -R root:root /var/www/$DOMAIN/deploy/artifacts
+mkdir -p /var/www/$DOMAIN/deploy/artifacts/public"
+chmod -R 700 /var/www/$DOMAIN/deploy/artifacts/public # execute-only
+chown -R root:root /var/www/$DOMAIN/deploy/artifacts/public
 
 echo -e "\n ✅  Deployment script created for $DOMAIN."
