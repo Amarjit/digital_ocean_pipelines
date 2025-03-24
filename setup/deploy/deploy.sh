@@ -1,8 +1,5 @@
 #!/bin/bash
 
-# Load environment variables.
-source ../../.env
-
 # Deployment paths
 LATEST_DEPLOYMENT="/var/www/$DOMAIN/deploy/latest"  
 LIVE_PATH="/var/www/$DOMAIN/public"
