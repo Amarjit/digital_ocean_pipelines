@@ -19,7 +19,7 @@ GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" \
 git clone "$WEBSITE_GIT_URL" "$LATEST_DEPLOYMENT"
 
 # Copy artifacts over to latest.
-echo -e "\n 🟩  Copying artifacts to latest deployment...
+echo -e "\n 🟩  Copying artifacts to latest deployment..."
 cp -r /var/www/$DOMAIN/deploy/artifacts/* "$LATEST_DEPLOYMENT"
 
 # Set the correct permissions
