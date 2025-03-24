@@ -18,6 +18,10 @@ mkdir -p "$LATEST_DEPLOYMENT"
 GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" \
 git clone "$WEBSITE_GIT_URL" "$LATEST_DEPLOYMENT"
 
+# Copy artifacts over to latest.
+echo -e "\n 🟩  Copying artifacts to latest deployment...
+cp -r /var/www/$DOMAIN/deploy/artifacts/* "$LATEST_DEPLOYMENT"
+
 # Set the correct permissions
 echo -e "\n 🟩  Setting of permissions of latest changes..."
 chown -R www-data:www-data "$LATEST_DEPLOYMENT"
