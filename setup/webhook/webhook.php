@@ -30,6 +30,12 @@ if (isset($data["ref"]) && isset($data["repository"]["name"])) {
     file_put_contents($log_file, "[" . date("Y-m-d H:i:s") . "] Push event: Repo=$repo_name, Branch=$branch\n", FILE_APPEND);
 }
 
-http_response_code(200);
+// Checks if file exists and report error.
+if (file_exists($flags_path)) {
+    file_put_contents($log_file, "[" . date("Y-m-d H:i:s") . "] Error: Deployment already in progress\n", FILE_APPEND);
+    http_response_code(409); // Conflict
+    exit("error: deployment already in progress");
+}
 
 touch($flags_path);
+http_response_code(200);
