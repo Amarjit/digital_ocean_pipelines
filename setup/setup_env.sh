@@ -63,9 +63,6 @@ echo -e "\n🟩  All variables updated in $ENV_LIVE."
 echo -e "\n🟩  Loading the new .env file to current shell..."
 source $ENV_LIVE
 
-# Source the .env-live file to load variables
-source $ENV_LIVE
-
 # Check if the domain is set and folder exists.
 echo -e "\n🟩  Checking if the domain folder exists..."
 if [ -z "$DOMAIN" ]; then
@@ -90,7 +87,3 @@ else
     echo -e "\n🟥  Failed to move .env file to /var/www/$DOMAIN/.env. Aborting..."
     exit 1
 fi
-
-# Load the some .env variables in the current shell to mke it available for other scripts.
-echo -e "\n🟩 Load ENV variables into shell"
-source /var/www/$DOMAIN/.env
