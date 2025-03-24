@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Load environment variables.
+source ../../.env
+
 # Deployment paths
 LATEST_DEPLOYMENT="/var/www/$DOMAIN/deploy/latest"  
 LIVE_PATH="/var/www/$DOMAIN/public"
@@ -16,7 +19,7 @@ rm -rf "$BLUE_PATH"         # Remove the blue deployment if it exists
 echo -e "\n 🟩  Fetching latest changes from GitHub..."
 mkdir -p "$LATEST_DEPLOYMENT"
 GIT_SSH_COMMAND="ssh -o StrictHostKeyChecking=no" \
-git clone "$WEBSITE_GIT_URL" "$LATEST_DEPLOYMENT"
+git clone "$GIT_REPO_URL" "$LATEST_DEPLOYMENT"
 
 # Copy artifacts over to latest.
 echo -e "\n 🟩  Copying artifacts to latest deployment..."
