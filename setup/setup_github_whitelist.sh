@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$DOMAIN=$1
+DOMAIN=$1
 
 VHOST_FILE="002-$DOMAIN-le-ssl.conf"
 VHOST_FILEPATH="/etc/apache2/sites-enabled/$VHOST_FILE"
