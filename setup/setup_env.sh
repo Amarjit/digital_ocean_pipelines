@@ -70,6 +70,9 @@ add_git_repo_url() {
     echo "🟩  ${var_name} set to ${git_repo_url}"
 }
 
+# Prompt and update other variables
+echo -e "🟩  Starting to update the $ENV_PATH file\n"
+
 # Update DOMAIN directly
 if ! grep -q "^DOMAIN=" $ENV_PATH; then
     echo -e "🟩  DOMAIN does not exist in $ENV_PATH, adding it"
@@ -78,9 +81,6 @@ else
     sed -i "s/^DOMAIN=.*/DOMAIN=${DOMAIN}/" $ENV_PATH
     echo "🟩  DOMAIN updated to ${DOMAIN}"
 fi
-
-# Prompt and update other variables
-echo -e "🟩  Starting to update the $ENV_PATH file\n"
 
 update_env_var "GIT_REPO_NAME" "Enter your Git repository name"
 update_env_var "GIT_BRANCH_NAME" "Enter your Git branch name"
