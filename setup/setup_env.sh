@@ -28,7 +28,7 @@ fi
 
 # Copy the .env example file to the deploy folder.
 echo -e "\n🟩  Copying the .env file to the deploy folder"
-cp artifacts/.env $ENV_PATH
+cp setup/artifacts/.env $ENV_PATH
 chown root:root $ENV_PATH
 chmod 700 $ENV_PATH
 
