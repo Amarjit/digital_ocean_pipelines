@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$DOMAIN=$1
+DOMAIN=$1
 
 DEPLOY_PATH="/var/www/$DOMAIN/deploy"
 DEPLOY_SCRIPT_PATH="$DEPLOY_PATH/deploy.sh"
