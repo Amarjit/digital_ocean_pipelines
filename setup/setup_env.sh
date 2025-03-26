@@ -5,9 +5,8 @@ DOMAIN_PATH="/var/www/$DOMAIN"
 DEPLOY_PATH="$DOMAIN_PATH/deploy"
 ENV_PATH="$DOMAIN_PATH/.env"
 
-# Check setup environment variables exists in setup/artifacts folder
-if [ -f "$ENV_PATH" ]; then
-    echo -e "\n 🟥  Domain deploy env file already exists. Aborting"
+if [ -z "$DOMAIN" ]; then
+    echo -e "\n 🟥  Domain not supplied. Aborting"
     exit 1
 fi
 
@@ -18,6 +17,12 @@ fi
 
 if [ ! -d "$DEPLOY_PATH" ]; then
     echo -e "\n 🟥  Domain deploy folder does not exist. Aborting"
+    exit 1
+fi
+
+# Check setup environment variables exists in setup/artifacts folder
+if [ -f "$ENV_PATH" ]; then
+    echo -e "\n 🟥  Domain deploy env file already exists. Aborting"
     exit 1
 fi
 
