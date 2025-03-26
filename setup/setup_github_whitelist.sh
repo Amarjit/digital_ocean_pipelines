@@ -6,15 +6,15 @@ VHOST_FILE="002-$DOMAIN-le-ssl.conf"
 VHOST_FILEPATH="/etc/apache2/sites-enabled/$VHOST_FILE"
 DOMAIN_DEPLOY_ENV="/var/www/$DOMAIN/deploy/.env"
 
-# Check if domain environment variables exist.
-if [[ ! -f "$DOMAIN_DEPLOY_ENV" ]]; then
-    echo -e "\n 🟥  Domain environment variables not found. setup_env.sh must be run. Aborting"
-    exit 1
-fi
-
 # Check if domain is provided.
 if [ -z "$DOMAIN" ]; then
     echo -e "\n 🟥  Domain not supplied. Aborting"
+    exit 1
+fi
+
+# Check if domain environment variables exist.
+if [[ ! -f "$DOMAIN_DEPLOY_ENV" ]]; then
+    echo -e "\n 🟥  Domain environment variables not found. setup_env.sh must be run. Aborting"
     exit 1
 fi
 
