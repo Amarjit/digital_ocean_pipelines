@@ -12,6 +12,12 @@ if [ -z "$DOMAIN" ]; then
     exit 1
 fi
 
+# Check domain exists
+if [ ! -d "/var/www/$DOMAIN" ]; then
+    echo -e "\n 🟥  Domain does not exist. Aborting"
+    exit 1
+fi
+
 # Check if domain environment variables exist.
 if [[ ! -f "$DOMAIN_DEPLOY_ENV" ]]; then
     echo -e "\n 🟥  Domain environment variables not found. setup_env.sh must be run. Aborting"
