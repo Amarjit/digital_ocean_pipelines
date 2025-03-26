@@ -4,7 +4,13 @@ DOMAIN=$1
 
 VHOST_FILE="002-$DOMAIN-le-ssl.conf"
 VHOST_FILEPATH="/etc/apache2/sites-enabled/$VHOST_FILE"
+DOMAIN_DEPLOY_ENV="/var/www/$DOMAIN/deploy/.env"
 
+# Check if domain environment variables exist.
+if [[ ! -f "$DOMAIN_DEPLOY_ENV" ]]; then
+    echo -e "\n 🟥  Domain environment variables not found. setup_env.sh must be run. Aborting"
+    exit 1
+fi
 
 # Check if domain is provided.
 if [ -z "$DOMAIN" ]; then
@@ -17,6 +23,8 @@ if [[ ! -f "$VHOST_FILEPATH" ]]; then
     echo -e "\n 🟥  SSL vhost file not found. Please ensure that the SSL certificate is installed. Aborting"
     exit 1
 fi
+
+source $DOMAIN_DEPLOY_ENV
 
 # Install JQ for JSON parsing.
 echo -e "\n 🟩  Installing JQ for JSON parsing"
