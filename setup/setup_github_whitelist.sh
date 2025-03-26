@@ -50,7 +50,8 @@ fi
 echo -e "\n 🟩  Preparing IP list for Apache configuration"
 IP_BLOCK=""
 for ip in $HOOK_IPS; do
-    IP_BLOCK="$IP_BLOCK\n            Require ip $ip"
+    IP_BLOCK="${IP_BLOCK}
+            Require ip $ip"
 done
 
 # Define block <Files "webhook.php"> section.
@@ -70,8 +71,10 @@ EOF
 
 # Insert the entire webhook block below DocumentRoot. Duplicate <Directory> blocks are allowed.
 echo -e "\n 🟩  Adding webhook IP whitelist block to vhost file"
-sed -i "/DocumentRoot/a\\
-$WEBHOOK_BLOCK" $VHOST_FILEPATH
+TEMP_FILE="/tmp/webhook_block_$$.tmp" # Temp file needs to be used because sed does not support various characters.
+echo "$WEBHOOK_BLOCK" > "$TEMP_FILE"
+sed -i "/DocumentRoot/r $TEMP_FILE" $VHOST_FILEPATH
+rm "$TEMP_FILE"
 
 # Output success message
 echo -e "\n ✅  Webhook IP whitelist block added to vhost file"
