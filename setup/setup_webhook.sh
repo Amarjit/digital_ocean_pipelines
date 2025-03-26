@@ -35,13 +35,12 @@ chmod 200 $LOG_PATH/webhook.log # write-only
 echo -e "\n 🟩  Creating webhook artifacts"
 cp setup/artifacts/webhook.php $ARTIFACTS_PATH/webhook.php
 chown root:root $ARTIFACTS_PATH/webhook.php
-chmod 700 $ARTIFACTS_PATH/webhook.php # read-only
+chmod 100 $ARTIFACTS_PATH/webhook.php # executable only
 
 echo -e "\n 🟩  Copying webhook to domain for immediate website setup"
 cp setup/artifacts/webhook.php $PUBLIC_PATH/webhook.php
 chown www-data:www-data $PUBLIC_PATH/webhook.php
-chmod 400 $PUBLIC_PATH/webhook.php # read-only
-chmod +x $PUBLIC_PATH/webhook.php
+chmod 100 $PUBLIC_PATH/webhook.php # executable only
 
 # Replace Github webhook secret key directly in file. It is only executable and cannot be read by www-data.
 echo -e "\n 🟩  Replacing GitHub webhook secret key in webhook.php"
