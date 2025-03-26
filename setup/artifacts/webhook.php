@@ -2,7 +2,7 @@
 
 $secret     = "SECRET_EXAMPLE";
 $log_file   = "../logs/webhook.log";
-$flags_path = "../deploy/flags/web"; // Flag to indicate deployment should be initiated.
+$flags_path = "../deploy/flags/web/deploy"; // Flag to indicate deployment should be initiated.
 
 // Get raw request body & headers.
 $payload = file_get_contents("php://input");

@@ -20,7 +20,7 @@ fi
 
 echo -e "\n 🟩  Creating deployment script"
 cp setup/artifacts/deploy.sh $DEPLOY_SCRIPT_PATH
-chmod 100 $DEPLOY_SCRIPT_PATH # execute only
 chown -R root:root $DEPLOY_SCRIPT_PATH
+chmod 110 $DEPLOY_SCRIPT_PATH # execute only
 
 echo -e "\n ✅  Deployment script created"

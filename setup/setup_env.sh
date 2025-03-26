@@ -30,7 +30,7 @@ fi
 echo -e "\n🟩  Copying the .env file to the deploy folder"
 cp setup/artifacts/.env $ENV_PATH
 chown root:root $ENV_PATH
-chmod 700 $ENV_PATH
+chmod 110 $ENV_PATH
 
 # Function to update the .env file
 update_env_var() {

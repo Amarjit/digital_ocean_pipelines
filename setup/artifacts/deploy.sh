@@ -58,10 +58,10 @@ cp -r "$LATEST_DEPLOYMENT"/public/* "$GREEN_PATH"
 
 # Set the correct permissions
 echo -e "\n 🟩  Setting of permissions of latest changes"
-chown -R www-data:www-data "$GREEN_PATH"
-chmod 500 "$GREEN_PATH"
-chmod -R 400 "$GREEN_PATH"
-chown -R www-data:www-data "$GREEN_PATH"
+chown root:www-data "$GREEN_PATH"
+chmod 550 "$GREEN_PATH"
+chown -R root:www-data "$GREEN_PATH/*"
+chmod -R 440 "$GREEN_PATH/*"
 
 # Move the current live to blue
 echo -e "\n 🟩  Moving current LIVE to BLUE deployment"
@@ -77,9 +77,10 @@ fi
 # Deploy the latest green deployment to live path
 echo -e "\n 🟩  Deploying GREEN deployment to LIVE"
 mv "$GREEN_PATH" "$LIVE_PATH"
-chown -R www-data:www-data "$LIVE_PATH"
-chmod 500 "$LIVE_PATH"
-chmod -R 400 "$LIVE_PATH"/*
+chown root:www-data "$LIVE_PATH"
+chmod 550 "$LIVE_PATH"
+chown -R root:www-data "$LIVE_PATH/*"
+chmod -R 440 "$LIVE_PATH"/*
 find "$LIVE_PATH" -type d -exec chmod 500 {} +  # Fix directories inside LIVE
 
 # Delete the lock file

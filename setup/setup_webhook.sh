@@ -38,14 +38,14 @@ echo -e "\n 🟩  Setting up webhook recipient PHP script"
 
 echo -e "\n 🟩  Creating blank webhook logfile"
 touch $LOG_PATH/webhook.log
-chown www-data:www-data $LOG_PATH/webhook.log
-chmod 200 $LOG_PATH/webhook.log # write-only
+chown root:www-data $LOG_PATH/webhook.log
+chmod 220 $LOG_PATH/webhook.log # write-only
 
 # Create webhook inside artifact folder so that it can be copied over for every fresh deployment.
 echo -e "\n 🟩  Creating webhook artifacts"
 cp setup/artifacts/webhook.php $ARTIFACTS_PATH/webhook.php
 chown root:root $ARTIFACTS_PATH/webhook.php
-chmod 500 $ARTIFACTS_PATH/webhook.php # executable + read
+chmod 550 $ARTIFACTS_PATH/webhook.php # executable + read
 
 # Replace Github webhook secret key directly in file. It is only executable and cannot be read by www-data.
 echo -e "\n 🟩  Replacing GitHub webhook secret key in webhook.php"
@@ -53,7 +53,7 @@ sed -i "s/SECRET_EXAMPLE/$GIT_WEBHOOK_SECRET/g" $ARTIFACTS_PATH/webhook.php
 
 echo -e "\n 🟩  Copying webhook to domain for immediate website setup"
 cp $ARTIFACTS_PATH/webhook.php $PUBLIC_PATH/webhook.php
-chown www-data:www-data $PUBLIC_PATH/webhook.php
-chmod 500 $PUBLIC_PATH/webhook.php # executable + read
+chown root:www-data $PUBLIC_PATH/webhook.php
+chmod 550 $PUBLIC_PATH/webhook.php # executable + read
 
 echo -e "\n ✅  Completed webook setup"
