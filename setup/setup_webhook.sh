@@ -47,13 +47,13 @@ cp setup/artifacts/webhook.php $ARTIFACTS_PATH/webhook.php
 chown root:root $ARTIFACTS_PATH/webhook.php
 chmod 500 $ARTIFACTS_PATH/webhook.php # executable + read
 
-echo -e "\n 🟩  Copying webhook to domain for immediate website setup"
-cp setup/artifacts/webhook.php $PUBLIC_PATH/webhook.php
-chown www-data:www-data $PUBLIC_PATH/webhook.php
-chmod 500 $PUBLIC_PATH/webhook.php # executable + read
-
 # Replace Github webhook secret key directly in file. It is only executable and cannot be read by www-data.
 echo -e "\n 🟩  Replacing GitHub webhook secret key in webhook.php"
-sed -i "s/SECRET_EXAMPLE/$GIT_WEBHOOK_SECRET/g" $PUBLIC_PATH/webhook.php
+sed -i "s/SECRET_EXAMPLE/$GIT_WEBHOOK_SECRET/g" $ARTIFACTS_PATH/webhook.php
+
+echo -e "\n 🟩  Copying webhook to domain for immediate website setup"
+cp $ARTIFACTS_PATH/webhook.php $PUBLIC_PATH/webhook.php
+chown www-data:www-data $PUBLIC_PATH/webhook.php
+chmod 500 $PUBLIC_PATH/webhook.php # executable + read
 
 echo -e "\n ✅  Completed webook setup"
