@@ -6,7 +6,7 @@ DEPLOY_PATH="$DOMAIN_PATH/deploy"
 ENV_PATH="$DOMAIN_PATH/.env"
 
 # Check setup environment variables exists in setup/artifacts folder
-if [ -f "setup/artifacts/.env" ]; then
+if [ -f "$ENV_PATH" ]; then
     echo -e "\n 🟥  Domain deploy env file already exists. Aborting"
     exit 1
 fi
