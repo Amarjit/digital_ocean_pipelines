@@ -4,9 +4,12 @@
 chmod +x setup/setup_env.sh
 source setup/setup_env.sh
 
+# Get environment variables.
+source .env
+
 # Setup webhook IP whitelisting.
 chmod +x setup/setup_github_whitelist.sh
-./setup/setup_github_whitelist.sh
+./setup/setup_github_whitelist.sh $DOMAIN
 
 # Create deployment script.
 chmod +x setup/setup_deploy.sh
