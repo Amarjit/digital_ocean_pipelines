@@ -13,7 +13,7 @@ chmod +x setup/setup_deploy.sh
 
 # Create webhook recipient PHP script.
 chmod +x setup/setup_webhook.sh
-./setup/setup_webhook.sh
+./setup/setup_webhook.sh $DOMAIN
 
 # Setup webhook IP whitelisting.
 chmod +x setup/setup_github_whitelist.sh
