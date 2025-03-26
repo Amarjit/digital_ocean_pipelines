@@ -2,6 +2,7 @@
 
 DOMAIN=$1
 
+DOMAIN_PATH="/var/www/$DOMAIN"
 LOG_PATH="/var/www/$DOMAIN/logs"
 ARTIFACTS_PATH="/var/www/$DOMAIN/deploy/artifacts"
 PUBLIC_PATH="/var/www/$DOMAIN/public/"
@@ -9,6 +10,11 @@ PUBLIC_PATH="/var/www/$DOMAIN/public/"
 # Check if domain is provided.
 if [ -z "$DOMAIN" ]; then
     echo -e "\n 🟥  Domain not supplied. Aborting"
+    exit 1
+fi
+
+if [ ! -d "$DOMAIN_PATH" ]; then
+    echo -e "\n 🟥  Domain does not exist. Aborting"
     exit 1
 fi
 
