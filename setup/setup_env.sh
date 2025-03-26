@@ -3,7 +3,7 @@
 DOMAIN=$1
 DOMAIN_PATH="/var/www/$DOMAIN"
 DEPLOY_PATH="$DOMAIN_PATH/deploy"
-ENV_PATH="$DOMAIN_PATH/.env"
+ENV_PATH="$DEPLOY_PATH/.env"
 
 if [ -z "$DOMAIN" ]; then
     echo -e "\n 🟥  Domain not supplied. Aborting"
