@@ -44,7 +44,7 @@ chmod 220 $LOG_PATH/webhook.log # write-only
 
 # Create webhook inside artifact web folder so that it can be copied over for every fresh deployment.
 echo -e "\n 🟩  Creating public artifacts (i.e. callable webhook)"
-cp setup/artifacts/public/* $ARTIFACTS_WEB_PATH/*
+cp setup/artifacts/public/* $ARTIFACTS_WEB_PATH/public/
 chown -R root:root $ARTIFACTS_WEB_PATH/*
 chmod -R 440 $ARTIFACTS_WEB_PATH/* # read-only
 
@@ -53,7 +53,7 @@ echo -e "\n 🟩  Replacing GitHub webhook secret key"
 sed -i "s/SECRET_EXAMPLE/$GIT_WEBHOOK_SECRET/g" $ARTIFACTS_WEB_PATH/webhook.php
 
 echo -e "\n 🟩  Copying public artifacts and webhook to domain for immediate website setup"
-cp $ARTIFACTS_WEB_PATH/* $PUBLIC_PATH/*
+cp $ARTIFACTS_WEB_PATH/* $PUBLIC_PATH/
 chown -R root:www-data $PUBLIC_PATH/*
 chmod 440 $PUBLIC_PATH/webhook.php # read-only
 find $PUBLIC_PATH -type d -exec chmod 550 {} \; # Fix directories inside LIVE so they are traversable
