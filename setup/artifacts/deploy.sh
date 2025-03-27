@@ -67,12 +67,12 @@ fi
 
 # Grab artifacts.
 echo -e "\n 🟩  Fetching public artifacts for green candicate"
-cp -r /var/www/$DOMAIN/deploy/artifacts/public/* "$GREEN_CANDICATE_PATH/public"
+cp -r /var/www/$DOMAIN/deploy/artifacts/web/ "$GREEN_CANDICATE_PATH/public"
 
 # Move green-candicate public to green
 echo -e "\n 🟩  Deploying green-candicate to GREEN deployment"
 mkdir -p "$GREEN_PATH"
-cp -r "$GREEN_CANDICATE_PATH"/public/* "$GREEN_PATH"
+cp -r "$GREEN_CANDICATE_PATH"/public/ "$GREEN_PATH"
 
 # Set the correct permissions
 echo -e "\n 🟩  Setting permissions for GREEN deployment"
