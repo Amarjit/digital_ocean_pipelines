@@ -1,7 +1,7 @@
 #!/bin/bash
 
 DOMAIN=$1
-DEPLOY_FILE="/var/www/$DOMAIN/deply/deploy.sh"
+DEPLOY_FILE="/var/www/$DOMAIN/deploy/deploy.sh"
 CRONTAB_FILE="/etc/cron.d/$DOMAIN__blue-green-deploy"
 
 # Check domain.
