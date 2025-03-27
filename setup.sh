@@ -16,7 +16,7 @@ chmod +x setup/setup_webhook.sh
 ./setup/setup_webhook.sh $DOMAIN
 
 # Setup webhook IP whitelisting.
-chmod +x setup/setup_github_whitelist.sh
+chmod +x setup/setup_webhook_whitelist.sh
 ./setup/setup_webhook_whitelist.sh $DOMAIN
 
 # Notify user of setting up webhook, secret and how to test.
