@@ -80,7 +80,7 @@ chown root:www-data "$GREEN_PATH"
 chmod 550 "$GREEN_PATH"
 chown -R root:www-data "$GREEN_PATH"
 chmod -R 440 "$GREEN_PATH"
-find "$GREEN_PATH" -type d -exec chmod 550 {} + # Fix directories inside GREEN so they are traversable
+find "$GREEN_PATH" -type d -exec chmod 110 {} + # Fix directories inside GREEN so they are traversable
 
 # Move the current live to blue
 echo -e "\n 🟩  Moving current LIVE to BLUE deployment"
@@ -102,7 +102,7 @@ chown root:www-data "$LIVE_PATH"
 chmod 550 "$LIVE_PATH"
 chown -R root:www-data "$LIVE_PATH"
 chmod -R 440 "$LIVE_PATH"
-find "$LIVE_PATH" -type d -exec chmod 550 {} + # Fix directories inside LIVE so they are traversable
+find "$LIVE_PATH" -type d -exec chmod 110 {} + # Fix directories inside LIVE so they are traversable
 
 # Delete the lock file
 echo -e "\n 🟩  Removing deployment lock file"
