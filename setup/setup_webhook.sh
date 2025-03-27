@@ -44,7 +44,7 @@ chmod 220 $LOG_PATH/webhook.log # write-only
 
 # Create webhook inside artifact web folder so that it can be copied over for every fresh deployment.
 echo -e "\n 🟩  Creating public artifacts (i.e. callable webhook)"
-cp setup/artifacts/public/* $ARTIFACTS_WEB_PATH/public/
+cp setup/artifacts/public/* $ARTIFACTS_WEB_PATH/
 chown -R root:root $ARTIFACTS_WEB_PATH/*
 chmod -R 440 $ARTIFACTS_WEB_PATH/* # read-only
 
