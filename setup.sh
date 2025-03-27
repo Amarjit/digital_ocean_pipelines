@@ -1,11 +1,16 @@
 #!/bin/bash
 
+$DOMAIN=$1
+
+# Check if domain is provided.
+if [ -z "$DOMAIN" ]; then
+    echo -e "\n 🟥  Domain not supplied. Aborting"
+    exit 1
+fi
+
 # Get env setup from user.
 chmod +x setup/setup_env.sh
-source setup/setup_env.sh
-
-# Get environment variables.
-source .env
+./setup/setup_env.sh $DOMAIN
 
 # Create deployment script.
 chmod +x setup/setup_deploy.sh
