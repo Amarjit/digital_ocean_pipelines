@@ -78,14 +78,17 @@ cp -r "$GREEN_CANDICATE_PATH"/public/ "$GREEN_PATH"
 echo -e "\n 🟩  Setting permissions for GREEN deployment"
 chown root:www-data "$GREEN_PATH"
 chmod 550 "$GREEN_PATH"
-chown -R root:www-data "$GREEN_PATH/*"
-chmod -R 440 "$GREEN_PATH/*"
+chown -R root:www-data "$GREEN_PATH"
+chmod -R 440 "$GREEN_PATH"
+find "$GREEN_PATH" -type d -exec chmod 550 {} + # Fix directories inside GREEN so they are traversable
 
 # Move the current live to blue
 echo -e "\n 🟩  Moving current LIVE to BLUE deployment"
 echo -e "\n 🟥  Site will be down momentarily"
 if [ -d "$LIVE_PATH" ]; then
     mv "$LIVE_PATH" "$BLUE_PATH"
+    chown root:root "$BLUE_PATH"
+    chmod 440 "$BLUE_PATH"
     chown -R root:root "$BLUE_PATH"
     chmod -R 440 "$BLUE_PATH"
 else
@@ -97,8 +100,8 @@ echo -e "\n 🟩  Deploying GREEN to LIVE"
 mv "$GREEN_PATH" "$LIVE_PATH"
 chown root:www-data "$LIVE_PATH"
 chmod 550 "$LIVE_PATH"
-chown -R root:www-data "$LIVE_PATH/*"
-chmod -R 440 "$LIVE_PATH"/*
+chown -R root:www-data "$LIVE_PATH"
+chmod -R 440 "$LIVE_PATH"
 find "$LIVE_PATH" -type d -exec chmod 550 {} + # Fix directories inside LIVE so they are traversable
 
 # Delete the lock file
