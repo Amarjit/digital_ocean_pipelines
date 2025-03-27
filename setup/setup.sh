@@ -24,6 +24,10 @@ chmod +x setup/setup_webhook.sh
 chmod +x setup/setup_webhook_whitelist.sh
 ./setup/setup_webhook_whitelist.sh $DOMAIN
 
+# Setup CRON job for deployment.
+chmod +x setup/setup_cron.sh
+./setup/setup_cron.sh $DOMAIN
+
 # Notify user of setting up webhook, secret and how to test.
 echo -e "\n ✅ Setup complete"
 echo -e "\n 🟩 Ensure that you read the README to ensure you have setup GitHub Webhook and authentication correctly"
