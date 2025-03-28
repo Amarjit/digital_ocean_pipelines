@@ -24,11 +24,11 @@ if (!hash_equals($expected_signature, $signature)) {
 $data = json_decode($payload, true);
 
 // Check for push event and extract details
-if (!$data["repository"]["name"] === $repo_name) {
+if ($data["repository"]["name"] !== $repo_name) {
     file_put_contents($log_file, "[" . date("Y-m-d H:i:s") . "] Error: Invalid repository name\n", FILE_APPEND);
     http_response_code(400);
     exit("error: invalid repository name");
-} elseif (!$data["ref"] === "refs/heads/$branch") {
+} elseif ($data["ref"] !== "refs/heads/$branch") {
     file_put_contents($log_file, "[" . date("Y-m-d H:i:s") . "] Error: Invalid branch name\n", FILE_APPEND);
     http_response_code(400);
     exit("error: invalid branch name");
