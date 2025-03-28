@@ -2,8 +2,6 @@
 
 DOMAIN=$1
 DEPLOY_FILE="/var/www/$DOMAIN/deploy/deploy.sh"
-CRONTAB_FILENAME="$DOMAIN"_blue_green_deploy
-CRONTAB_FILE="/etc/cron.d/$CRONTAB_FILENAME"
 
 # Check domain.
 if [ -z "$DOMAIN" ]; then
@@ -22,6 +20,11 @@ if [ ! -f "$DEPLOY_FILE" ]; then
     echo -e "\n 🟥  Deploy file not found. Aborting"
     exit 1
 fi
+
+# Convert to alphanumeric, allow underscores, convert dots to underscores
+CRONTAB_FILENAME="$DOMAIN"_deploy
+CRONTAB_FILENAME=$(echo "$CRONTAB_FILENAME" | tr -cd '[:alnum:]_.' | tr '.' '_')
+CRONTAB_FILE="/etc/cron.d/$CRONTAB_FILENAME"
 
 # Set cron.d to run every 1 minute
 echo -e "\n 🟩  Setting up CRON job for blue-green deployment"
