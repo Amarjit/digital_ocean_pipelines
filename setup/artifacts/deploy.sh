@@ -1,6 +1,6 @@
 #!/bin/bash
 
-$DOMAIN=$1
+DOMAIN=$1
 
 # Check if domain is provided.
 if [ -z "$DOMAIN" ]; then
