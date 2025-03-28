@@ -1,8 +1,19 @@
 #!/bin/bash
 
+$DOMAIN=$1
+
+# Check if domain is provided.
+if [ -z "$DOMAIN" ]; then
+    echo -e "\n 🟥  Domain not supplied. Aborting"
+    exit 1
+fi
+
+# Environment variables
+ENV_FILE="/var/www/$DOMAIN/deploy/.env"
+
 # Load environment variables
-if [ -f .env ]; then
-    source .env
+if [ -f $ENV_FILE ]; then
+    source $ENV_FILE
 else
     echo -e "\n 🟥  .env file not found. Aborting"
     exit 1
