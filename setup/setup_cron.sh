@@ -25,10 +25,11 @@ fi
 CRONTAB_FILENAME="$DOMAIN"_deploy
 CRONTAB_FILENAME=$(echo "$CRONTAB_FILENAME" | tr -cd '[:alnum:]_.' | tr '.' '_')
 CRONTAB_FILE="/etc/cron.d/$CRONTAB_FILENAME"
+DEPLOY_WEBONLY_FLAG_PATH="/var/www/$DOMAIN/deploy/flags/web/deploy"
 
-# Set cron.d to run every 1 minute
+# Set cron.d to run every 1 minute and only if the deploy web flag is set.
 echo -e "\n 🟩  Setting up CRON job for blue-green deployment"
-echo "*/5 * * * * root $DEPLOY_FILE $DOMAIN" > $CRONTAB_FILE
+echo "*/5 * * * * root [ -f $DEPLOY_WEBONLY_FLAG_PATH ] && $DEPLOY_FILE $DOMAIN" > $CRONTAB_FILE
 
 if [ -f "$CRONTAB_FILE" ]; then
     echo -e "\n ✅  CRON job setup"
