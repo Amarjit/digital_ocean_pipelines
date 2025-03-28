@@ -51,7 +51,13 @@ chown -R root:root $ARTIFACTS_WEB_PATH
 chmod -R 440 $ARTIFACTS_WEB_PATH # read-only
 find $ARTIFACTS_WEB_PATH -type d -exec chmod 110 {} + # Fix directories inside LIVE so they are traversable
 
-# Replace Github webhook secret key directly in file. It is only executable and cannot be read by www-data.
+# Replace Github webhook variables
+echo -e "\n 🟩  Replacing GitHub webhook repository name"
+sed -i "s/EXAMPLE_REPO/$GIT_REPO_NAME/g" $ARTIFACTS_WEB_PATH/webhook.php
+
+echo -e "\n 🟩  Replacing GitHub webhook branch"
+sed -i "s/EXAMPLE_BRANCH/$GIT_BRANCH_NAME/g" $ARTIFACTS_WEB_PATH/webhook.php
+
 echo -e "\n 🟩  Replacing GitHub webhook secret key"
 sed -i "s/SECRET_EXAMPLE/$GIT_WEBHOOK_SECRET/g" $ARTIFACTS_WEB_PATH/webhook.php
 
