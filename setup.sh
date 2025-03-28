@@ -29,5 +29,7 @@ chmod +x setup/setup_cron.sh
 ./setup/setup_cron.sh $DOMAIN
 
 # Notify user of setting up webhook, secret and how to test.
+# echo warning block square emoji orange
 echo -e "\n ✅ Setup complete"
-echo -e "\n 🟩 Ensure that you read the README to ensure you have setup GitHub Webhook and authentication correctly"
+echo -e "\n 🟨 Ensure that you read the README to ensure you have setup GitHub Webhook and authentication correctly"
+echo -e "\n 🟨 Site will become available in less than 5 minutes if setup correctly."
