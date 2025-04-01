@@ -115,13 +115,13 @@ chown -R root:www-data "$LIVE_PATH"
 chmod -R 440 "$LIVE_PATH"
 find "$LIVE_PATH" -type d -exec chmod 110 {} + # Fix directories inside LIVE so they are traversable
 
-# Delete the lock file
-echo -e "\n 🟩  Removing deployment lock file"
-rm -f "$DEPLOY_LOCK_FILE"
-
 # Remove the deploy flag
 echo -e "\n 🟩  Removing webhook deploy flag"
 rm -f "$DEPLOY_FILE"
+
+# Delete the lock file
+echo -e "\n 🟩  Removing deployment lock file"
+rm -f "$DEPLOY_LOCK_FILE"
 
 echo -e "\n ✅  Deployment completed successfully"
 echo -e "\n ✅  Website is live"
