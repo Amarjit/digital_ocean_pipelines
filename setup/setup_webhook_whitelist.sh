@@ -1,9 +1,14 @@
 #!/bin/bash
 
 DOMAIN=$1
+CERT_TYPE=$2
 
-VHOST_FILE="002-$DOMAIN-le-ssl.conf"
-VHOST_FILEPATH="/etc/apache2/sites-enabled/$VHOST_FILE"
+VHOST_SSL_FILE="002-$DOMAIN-le-ssl.conf"
+VHOST_SSL_FILE_PATH="/etc/apache2/sites-enabled/$VHOST_FILE"
+
+VHOST_SELF_CERT_FILE="002-$DOMAIN-selfsigned.conf"
+VHOST_SELF_CERT_FILE_PATH="/etc/apache2/sites-enabled/$VHOST_SELF_CERT_FILE"
+
 DOMAIN_DEPLOY_ENV="/var/www/$DOMAIN/deploy/.env"
 
 # Check if domain is provided.
@@ -22,6 +27,19 @@ fi
 if [[ ! -f "$DOMAIN_DEPLOY_ENV" ]]; then
     echo -e "\n 🟥  Domain environment variables not found. setup_env.sh must be run. Aborting"
     exit 1
+fi
+
+# Validate the certificate type.
+if [[ "$CERT_TYPE" != "local" && "$CERT_TYPE" != "live" ]]; then
+    echo -e "\n 🟥  Invalid certificate type. Must be 'local' or 'live'. Aborting"
+    exit 1
+fi
+
+# Set VHOST_FILEPATH depending on local or remote
+if [[ "$CERT_TYPE" == "local" ]]; then
+    VHOST_FILEPATH="$VHOST_SELF_CERT_FILE_PATH"
+elif [[ "$CERT_TYPE" == "live" ]]; then
+    VHOST_FILEPATH="$VHOST_SSL_FILE_PATH"
 fi
 
 # Check if the vhost file exists.
@@ -71,7 +89,7 @@ EOF
 
 # Insert the entire webhook block below DocumentRoot. Duplicate <Directory> blocks are allowed.
 echo -e "\n 🟩  Adding webhook IP whitelist block to vhost file"
-TEMP_FILE="/tmp/webhook_block_$$.tmp" # Temp file needs to be used because sed does not support various characters.
+TEMP_FILE="/tmp/webhook_block_$DOMAIN.tmp" # Temp file needs to be used because sed does not support various characters.
 echo "$WEBHOOK_BLOCK" > "$TEMP_FILE"
 sed -i "/DocumentRoot/r $TEMP_FILE" $VHOST_FILEPATH
 rm "$TEMP_FILE"
